@@ -9,13 +9,16 @@ namespace BookManagementAPI.Services
     public class BookService : IBookService
     {
         private readonly IMapper _mapper;
-        private readonly List<Book> _books = new(); 
+        private readonly List<Book> _books = new();
         
         public BookService(IMapper mapper)
         {
             _mapper = mapper;
-            
-            // Seed data
+            SeedData();
+        }
+
+        private void SeedData()
+        {
             _books.Add(new Book
             {
                 Id = Guid.NewGuid(),
@@ -26,22 +29,31 @@ namespace BookManagementAPI.Services
                 CreatedAt = DateTime.UtcNow
             });
         }
-        
+
         public async Task<BookResponse?> GetByIdAsync(GetBookByIdRequest request)
         {
+            await Task.CompletedTask;
             var book = _books.FirstOrDefault(b => b.Id == request.Id);
             return book == null ? null : _mapper.Map<BookResponse>(book);
         }
-        
+
         public async Task<BookResponse> UpdateAsync(UpdateBookRequest request)
         {
-            var book = _books.FirstOrDefault(b => b.Id == request.Id);
-            if (book == null) throw new KeyNotFoundException("Book not found");
+            await Task.CompletedTask;
+            var book = _books.FirstOrDefault(b => b.Id == request.Id) 
+                ?? throw new KeyNotFoundException("Book not found");
             
             _mapper.Map(request, book);
             book.UpdatedAt = DateTime.UtcNow;
             
             return _mapper.Map<BookResponse>(book);
+        }
+
+        public async Task<bool> DeleteAsync(GetBookByIdRequest request)
+        {
+            await Task.CompletedTask;
+            var book = _books.FirstOrDefault(b => b.Id == request.Id);
+            return book != null && _books.Remove(book);
         }
     }
 }
