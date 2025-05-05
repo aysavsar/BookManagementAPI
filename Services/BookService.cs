@@ -3,6 +3,10 @@ using BookManagementAPI.Models.Entities;
 using BookManagementAPI.Models.Requests;
 using BookManagementAPI.Models.Responses;
 using BookManagementAPI.Services.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace BookManagementAPI.Services
 {
@@ -10,7 +14,7 @@ namespace BookManagementAPI.Services
     {
         private readonly IMapper _mapper;
         private readonly List<Book> _books = new();
-        
+
         public BookService(IMapper mapper)
         {
             _mapper = mapper;
@@ -23,7 +27,11 @@ namespace BookManagementAPI.Services
             {
                 Id = Guid.NewGuid(),
                 Title = "Clean Code",
-                Author = "Robert C. Martin",
+                Author = new Author
+                {
+                    FirstName = "Robert",
+                    LastName = "C. Martin"
+                },
                 PublicationYear = 2008,
                 PageCount = 464,
                 CreatedAt = DateTime.UtcNow
@@ -40,12 +48,12 @@ namespace BookManagementAPI.Services
         public async Task<BookResponse> UpdateAsync(UpdateBookRequest request)
         {
             await Task.CompletedTask;
-            var book = _books.FirstOrDefault(b => b.Id == request.Id) 
+            var book = _books.FirstOrDefault(b => b.Id == request.Id)
                 ?? throw new KeyNotFoundException("Book not found");
-            
+
             _mapper.Map(request, book);
             book.UpdatedAt = DateTime.UtcNow;
-            
+
             return _mapper.Map<BookResponse>(book);
         }
 

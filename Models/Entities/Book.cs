@@ -1,15 +1,15 @@
+using System;
+
 namespace BookManagementAPI.Models.Entities
 {
     public class Book
     {
         public Guid Id { get; set; }
-        public string Title { get; set; } = string.Empty;
-        public string Author { get; set; } = string.Empty;
-        public string? Description { get; set; }
-        public int PublicationYear { get; set; }
-        public string? Isbn { get; set; }
-        public int PageCount { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public string Title { get; set; }
+        public Author Author { get; set; } // Author sınıfı eklendi
+        public int PublicationYear { get; set; } // PublicationYear eklendi
+        public int PageCount { get; set; } // PageCount eklendi
+        public DateTime CreatedAt { get; set; } // CreatedAt eklendi
         public DateTime? UpdatedAt { get; set; }
     }
 }
