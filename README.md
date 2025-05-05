@@ -15,7 +15,7 @@
 
 ## 🛠️ Kullanılan Teknolojiler
 
-- .NET 8
+- .NET 9
 - Entity Framework Core
 - AutoMapper
 - FluentValidation
