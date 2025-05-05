@@ -5,8 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BookManagementAPI.Models.Dtos;
 
-
-
 namespace BookManagementAPI.Controllers
 {
     [ApiController]
@@ -32,7 +30,7 @@ namespace BookManagementAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateAuthor(int id, [FromBody] UpdateAuthorDto dto)
+        public async Task<IActionResult> UpdateAuthor(Guid id, [FromBody] UpdateAuthorDto dto)
         {
             var author = await _context.Authors.FindAsync(id);
             if (author == null)
@@ -44,7 +42,7 @@ namespace BookManagementAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAuthor(int id)
+        public async Task<IActionResult> DeleteAuthor(Guid id)
         {
             var author = await _context.Authors.Include(a => a.Books).FirstOrDefaultAsync(a => a.Id == id);
             if (author == null)
@@ -66,7 +64,7 @@ namespace BookManagementAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<AuthorDto>> GetAuthor(int id)
+        public async Task<ActionResult<AuthorDto>> GetAuthor(Guid id)
         {
             var author = await _context.Authors.FindAsync(id);
             if (author == null)

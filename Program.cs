@@ -3,6 +3,8 @@ using BookManagementAPI.Services;
 using BookManagementAPI.Services.Interfaces;
 using BookManagementAPI.Validators;
 using FluentValidation;
+using BookManagementAPI.Data; // ApplicationDbContext
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,13 +13,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Add AutoMapper configuration// AutoMapper'ı belirtirken yalnızca doğru metodu çağırın
+// Add AutoMapper configuration
 builder.Services.AddAutoMapper(cfg => cfg.AddProfile<BookProfile>(), typeof(Program));
-
-
 
 // Add FluentValidation configuration
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
+
+// Add DbContext configuration for PostgreSQL
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))); // PostgreSQL
 
 // Register application services
 builder.Services.AddScoped<IBookService, BookService>();
