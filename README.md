@@ -1,6 +1,6 @@
 # 📚 BookManagementAPI
 
-.NET 8 tabanlı, kitap, yazar ve tür (genre) yönetimi sağlayan bir Web API projesidir. Proje, CRUD işlemleri, DTO yapısı, FluentValidation, AutoMapper ve birim testleri gibi modern yazılım tekniklerini barındırır.
+.NET 9 tabanlı, kitap, yazar ve tür (genre) yönetimi sağlayan bir Web API projesidir. Proje, CRUD işlemleri, DTO yapısı, FluentValidation, AutoMapper ve birim testleri gibi modern yazılım tekniklerini barındırır.
 
 ## 🚀 Özellikler
 
